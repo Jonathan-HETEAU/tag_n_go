@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "637814396327",
+    "firebase_url": "https://tagngo-a24da.firebaseio.com",
+    "project_id": "tagngo-a24da",
+    "storage_bucket": "tagngo-a24da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637814396327:android:76a564a2b0139f1bf15282",
+        "android_client_info": {
+          "package_name": "fr.jonathanheteau.tag_n_go"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637814396327-tl8jqkodgk8cbu0t2rf45ukesp8es589.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDegWVcu9LNeZ5j8XsqFg9Dri99rR7CMyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637814396327-tl8jqkodgk8cbu0t2rf45ukesp8es589.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
