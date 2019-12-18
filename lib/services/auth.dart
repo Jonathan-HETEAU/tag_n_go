@@ -1,11 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tag_n_go/models/tag.dart';
 import 'package:tag_n_go/models/user.dart';
+import 'package:tag_n_go/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User _userFromFirebasUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null
+        ? User(
+            uid: user.uid,
+            tagsCollection: DatabaseService()
+                .instance
+                .collection('Taggers/${user.uid}/Tags'),
+            historyCollection: DatabaseService()
+                .instance
+                .collection('Taggers/${user.uid}/History'))
+        : null;
   }
 
   Stream<User> get user {
@@ -42,8 +53,13 @@ class AuthService {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
-      return _userFromFirebasUser(user);
+      User user = _userFromFirebasUser(result.user);
+      await user.updateTag(Tag(
+        name: "MyFisrtHashTag",
+        activated: true,
+        days: [true, true, true, true, true, true, true],
+      ));
+      return user;
     } catch (e) {
       print(e.toString());
       return null;
