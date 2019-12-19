@@ -20,6 +20,7 @@ class _HistoryListState extends State<HistoryList> {
     List<TagDay> days = Provider.of<List<TagDay>>(context);
     Map<int, TagDay> dateDays = Map<int, TagDay>();
     Set<String> tags = Set();
+
     if (days != null) {
       dateDays.addEntries(days.where((tagDay) {
         if (tagDay.tags.isNotEmpty) {
@@ -38,15 +39,18 @@ class _HistoryListState extends State<HistoryList> {
     return Container(
         child: Column(children: <Widget>[
       Container(
-          child: DropdownButton<String>(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          DropdownButton<String>(
               value: tagSelected,
               icon: Icon(Icons.keyboard_arrow_down),
               iconSize: 20,
               elevation: 16,
-              style: TextStyle(color: Colors.deepPurple, fontSize: 25),
+              style: TextStyle(color: Colors.blue, fontSize: 25),
               underline: Container(
                 height: 3,
-                color: Colors.deepPurpleAccent,
+                color: Colors.blue,
               ),
               onChanged: (String newValue) {
                 setState(() {
@@ -54,17 +58,20 @@ class _HistoryListState extends State<HistoryList> {
                 });
               },
               items: [
-            DropdownMenuItem<String>(
-              value: "",
-              child: Text("..."),
-            ),
-            ...tags.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text("#" + value),
-              );
-            }).toList()
-          ])),
+                DropdownMenuItem<String>(
+                  value: "",
+                  child: Text("..."),
+                ),
+                ...tags.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text("#" + value),
+                  );
+                }).toList()
+              ]),
+          Text(dateDays.length.toString() + "/" + nbr.toString())
+        ],
+      )),
       Expanded(
           child: GridView.count(crossAxisCount: 7, children: [
         ...List.generate(7, (i) {
@@ -79,13 +86,22 @@ class _HistoryListState extends State<HistoryList> {
           return Container();
         }),
         ...List.generate(nbr, (index) {
+          bool isToday = (nbr - 1 - index) == 0;
           if (dateDays.containsKey(nbr - 1 - index)) {
             return Container(
               child: Icon(
                 Icons.event_available,
-                color: Colors.green,
+                color: Colors.blue,
                 size: 24.0,
                 semanticLabel: 'tag',
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: isToday
+                      ? Colors.blue
+                      : Colors.white, //                   <--- border color
+                  width: isToday ? 5.0 : 0.0,
+                ),
               ),
             );
           } else {
@@ -95,6 +111,14 @@ class _HistoryListState extends State<HistoryList> {
                 color: Colors.black,
                 size: 24.0,
                 semanticLabel: 'tag',
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: isToday
+                      ? Colors.blue
+                      : Colors.white, //                   <--- border color
+                  width: isToday ? 5.0 : 0.0,
+                ),
               ),
             );
           }

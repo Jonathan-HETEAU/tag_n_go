@@ -2,13 +2,13 @@ import 'package:intl/intl.dart';
 
 class DateUtile {
   static final List<String> Days = [
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-    "Dimanche"
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
   ];
 
   static DateTime now() {

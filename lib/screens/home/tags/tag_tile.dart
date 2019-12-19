@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tag_n_go/models/tag.dart';
 import 'package:tag_n_go/models/user.dart';
+import 'package:tag_n_go/shared/date.dart';
 import 'package:tag_n_go/shared/dialog.dart';
 
 class TagTile extends StatelessWidget {
@@ -21,20 +22,10 @@ class TagTile extends StatelessWidget {
     );
   }
 
-  static final List<String> Days = [
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-    "Dimange"
-  ];
-
   Widget week(List<bool> selectedDays) {
     return Container(
         child: Row(
-            children: Days.asMap()
+            children: DateUtile.Days.asMap()
                 .map((index, day) {
                   return MapEntry(
                       day,

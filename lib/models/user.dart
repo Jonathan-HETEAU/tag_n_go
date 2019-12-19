@@ -76,7 +76,7 @@ class User {
 
   Stream<List<TagDay>> history({DateTime from, DateTime to}) {
     return historyCollection
-        .orderBy("date", descending: true)
+        .orderBy("date", descending: false)
         .where("date", isGreaterThan: Timestamp.fromDate(to))
         .snapshots()
         .map((snap) {
