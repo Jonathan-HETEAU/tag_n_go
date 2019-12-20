@@ -5,6 +5,7 @@ import 'package:tag_n_go/models/tag.dart';
 import 'package:tag_n_go/models/user.dart';
 import 'package:tag_n_go/screens/home/today/today_grid.dart';
 import 'package:tag_n_go/screens/home/today/today_tag_selected.dart';
+import 'package:tag_n_go/shared/loading.dart';
 
 class TodayScreens extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _TodayScreensState extends State<TodayScreens> {
     User user = Provider.of<User>(context);
 
     return user == null
-        ? Container()
+        ? Loading()
         : StreamProvider<TagDay>.value(
             value: user.today,
             child: Scaffold(
