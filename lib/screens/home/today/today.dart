@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tag_n_go/models/day.dart';
 import 'package:tag_n_go/models/tag.dart';
 import 'package:tag_n_go/models/user.dart';
+import 'package:tag_n_go/resources/app_colors.dart';
 import 'package:tag_n_go/screens/home/today/today_grid.dart';
 import 'package:tag_n_go/screens/home/today/today_tag_selected.dart';
 import 'package:tag_n_go/shared/loading.dart';
@@ -25,7 +26,9 @@ class _TodayScreensState extends State<TodayScreens> {
             value: user.today,
             child: Scaffold(
                 appBar: AppBar(
-                  title: Text("Today"),
+                  centerTitle: true,
+                  backgroundColor: Colors.white,
+                  title: Text("Today", style: TextStyle(fontFamily: "BigSnow", fontSize: 40,color: AppColors.color5)),
                 ),
                 body: Stack(
                   fit: StackFit.expand,

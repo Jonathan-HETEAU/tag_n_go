@@ -1,23 +1,38 @@
+import 'dart:math';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tag_n_go/models/tag.dart';
 import 'package:tag_n_go/models/user.dart';
+import 'package:tag_n_go/resources/app_colors.dart';
 import 'package:tag_n_go/shared/date.dart';
-import 'package:tag_n_go/shared/dialog.dart';
 
-class TagTile extends StatelessWidget {
+class TagTile extends StatefulWidget {
   final Tag tag;
   final User user;
   final Function onDelete;
+
   TagTile({this.tag, this.user, this.onDelete});
+  @override
+  _TagTileState createState() => _TagTileState();
+}
+
+class _TagTileState extends State<TagTile> {
+  bool isExpanded = false;
 
   Widget buttonDay(int index, String day, {bool selected = false}) {
     return RaisedButton(
-      child: Text(day[0]),
+      elevation: selected ? 5 : 1,
+      child: Text(day[0],
+          style: TextStyle(
+              fontFamily: "BigSnow",
+              fontSize: 15,
+              color: selected ? Colors.white : AppColors.color5)),
       onPressed: () {
-        tag.days[index] = !tag.days[index];
-        user.updateTag(tag);
+        widget.tag.days[index] = !widget.tag.days[index];
+        widget.user.updateTag(widget.tag);
       },
-      color: selected ? Colors.blue : Colors.black,
+      color: selected ? AppColors.color5 : Colors.white,
       shape: CircleBorder(),
     );
   }
@@ -42,18 +57,38 @@ class TagTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        color: isExpanded ? Colors.white : Colors.white.withAlpha(200),
         child: ExpansionTile(
-      title: Text(
-        '#' + tag.name,
-        style: TextStyle(fontStyle: FontStyle.italic),
-      ),
-      children: <Widget>[
-        week(tag.days),
-        RaisedButton(
-          child: Text("delete"),
-          onPressed: () => onDelete(tag),
-        )
-      ],
-    ));
+          trailing: isExpanded
+              ? Icon(Icons.keyboard_arrow_up, color: AppColors.color2)
+              : Icon(Icons.keyboard_arrow_down, color: AppColors.color5),
+          initiallyExpanded: isExpanded,
+          onExpansionChanged: (val) => setState(() {
+            isExpanded = val;
+          }),
+          title: AutoSizeText(
+            '#' + widget.tag.name,
+            style: TextStyle(
+                fontFamily: "BigSnow",
+                fontSize: 25,
+                color: isExpanded ? AppColors.color5 : AppColors.color2),
+            maxLines: 1,
+          ),
+          children: <Widget>[
+            week(widget.tag.days),
+            FlatButton.icon(
+              label: AutoSizeText(
+                "Delete " + widget.tag.name,
+                style: TextStyle(
+                    fontFamily: "BigSnow",
+                    fontSize: 15,
+                    color: AppColors.color3),
+                maxLines: 1,
+              ),
+              icon: Icon(Icons.delete, color: AppColors.color3),
+              onPressed: () => widget.onDelete(widget.tag),
+            )
+          ],
+        ));
   }
 }

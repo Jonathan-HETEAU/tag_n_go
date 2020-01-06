@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tag_n_go/models/user.dart';
+import 'package:tag_n_go/resources/app_colors.dart';
 import 'package:tag_n_go/screens/home/tags/tag_form.dart';
 import 'package:tag_n_go/screens/home/tags/tag_list.dart';
 import 'package:tag_n_go/services/auth.dart';
@@ -15,27 +16,50 @@ class TagsView extends StatelessWidget {
     final tags = Provider.of<List<Tag>>(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('My Tags'),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          title: const Text('My Tags',
+              style: TextStyle(
+                  fontFamily: "BigSnow",
+                  fontSize: 40,
+                  color: AppColors.color5)),
           actions: <Widget>[
             FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text("Log out"),
+              icon: Icon(
+                Icons.exit_to_app,
+                color: AppColors.color2,
+              ),
+              label: Text("Log out",
+                  style: TextStyle(
+                      fontFamily: "BigSnow",
+                      fontSize: 14,
+                      color: AppColors.color2)),
               onPressed: () async {
                 await _auth.signOut();
               },
             )
           ],
         ),
-        body: TagList(),
+        body: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                  AppColors.color5,
+                  AppColors.color4,
+                  AppColors.color2
+                ])),
+            child: TagList()),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red,
-          child: Icon(Icons.add),
+          elevation: 15,
+          backgroundColor: Colors.white,
+          child: Icon(Icons.add,color: AppColors.color5,size: 40,),
           tooltip: "'Add Tag",
           onPressed: () {
             showModalBottomSheet(
               context: context,
               builder: (_context) {
-               
                 return Container(
                   child: TagForm(
                     tags: tags,

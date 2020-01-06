@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tag_n_go/resources/app_colors.dart';
 
 class YesNoDialoq extends StatelessWidget {
   final String title;
@@ -10,7 +11,8 @@ class YesNoDialoq extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title),
+   
+      title: Text(title+"?"),
       actions: <Widget>[
         FlatButton(
           child: Text("Yes"),

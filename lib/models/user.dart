@@ -35,10 +35,14 @@ class User {
   Future updateToday(TagDay tagsToday) async {
     String stringDate = DateFormat("yyyyMMdd").format(tagsToday.date);
     try {
-      return await historyCollection.document(stringDate).setData({
-        'tags': tagsToday.tags.toList(),
-        'date': Timestamp.fromDate(tagsToday.date)
-      });
+      if (tagsToday.tags.length > 0) {
+        return await historyCollection.document(stringDate).setData({
+          'tags': tagsToday.tags.toList(),
+          'date': Timestamp.fromDate(tagsToday.date)
+        });
+      } else {
+        return await historyCollection.document(stringDate).delete();
+      }
     } catch (e) {
       print(e.toString());
       return null;

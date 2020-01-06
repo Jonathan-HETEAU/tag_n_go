@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tag_n_go/models/tag.dart';
+import 'package:tag_n_go/resources/app_colors.dart';
 import 'package:tag_n_go/shared/constants.dart';
 
 class TagForm extends StatefulWidget {
@@ -20,48 +21,67 @@ class _TagFormState extends State<TagForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: <Widget>[
-          Text("Create new #"),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: textInputDecoration.copyWith(
-              hintText: '#',
-            ),
-            validator: (name) =>
-                widget.tags.map((tag) => tag.name).contains(name)
-                    ? 'the tag already exists'
-                    : null,
-            onChanged: (name) {
-              setState(() {
-                _currentName = name;
-              });
-            },
-          ),
-          RaisedButton(
-              color: Colors.green,
-              child: Text(
-                'Sign in',
-                style: TextStyle(color: Colors.black26),
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              AppColors.color5,
+              AppColors.color4,
+              AppColors.color1
+            ])),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              Text("Create new #",
+                  style: TextStyle(
+                      fontFamily: "BigSnow",
+                      fontSize: 40,
+                      color: Colors.white)),
+              SizedBox(
+                height: 10.0,
               ),
-              onPressed: () async {
-                if (_formKey.currentState.validate()) {
+              TextFormField(
+                decoration: textInputDecoration.copyWith(
+                  hintText: '#',
+                ),
+                validator: (name) =>
+                    widget.tags.map((tag) => tag.name).contains(name)
+                        ? 'the tag already exists'
+                        : null,
+                onChanged: (name) {
                   setState(() {
-                    loading = true;
+                    _currentName = name;
                   });
-                  await widget.onSubmit(_currentName);
+                },
+              ),
+              RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(18.0),
+                      side: BorderSide(color: AppColors.color5, width: 5)),
+                  color: Colors.white,
+                  child: Text('Go',
+                      style: TextStyle(
+                          fontFamily: "BigSnow",
+                          fontSize: 30,
+                          color: AppColors.color5)),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      setState(() {
+                        loading = true;
+                      });
+                      await widget.onSubmit(_currentName);
 
-                  setState(() {
-                    loading = false;
-                  });
-                }
-              }),
-        ],
-      ),
-    );
+                      setState(() {
+                        loading = false;
+                      });
+                    }
+                  }),
+            ],
+          ),
+        ));
   }
 }
