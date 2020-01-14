@@ -45,7 +45,7 @@ class TodayGrid extends StatelessWidget {
             child: Container(
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 child: ListView(
-                  children: tags.map((tag) {
+                  children: tags.where((tag) => tagsToday.tags.contains(tag.name) || (tag.activated && tag.days[day])).map((tag) {
                     bool isOkToday = tagsToday.tags.contains(tag.name);
                     return TodayTag(
                         isOkToday: isOkToday,

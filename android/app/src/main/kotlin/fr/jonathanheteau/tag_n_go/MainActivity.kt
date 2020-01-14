@@ -1,4 +1,4 @@
-package com.example.tag_n_go
+package fr.jonathanheteau.tag_n_go
 
 import android.os.Bundle
 

@@ -54,7 +54,11 @@ class TagsView extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           elevation: 15,
           backgroundColor: Colors.white,
-          child: Icon(Icons.add,color: AppColors.color5,size: 40,),
+          child: Icon(
+            Icons.add,
+            color: AppColors.color5,
+            size: 40,
+          ),
           tooltip: "'Add Tag",
           onPressed: () {
             showModalBottomSheet(
@@ -64,7 +68,15 @@ class TagsView extends StatelessWidget {
                   child: TagForm(
                     tags: tags,
                     onSubmit: (name) async {
-                      await user.updateTag(Tag(name: name));
+                      await user.updateTag(Tag(name: name, days: [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false
+                      ]));
                       Navigator.pop(_context);
                     },
                   ),

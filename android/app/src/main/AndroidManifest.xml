@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tag_n_go">
+    package="fr.jonathanheteau.tag_n_go">
     
 
    <uses-permission android:name="android.permission.INTERNET"/>
