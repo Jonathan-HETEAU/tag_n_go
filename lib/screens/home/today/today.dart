@@ -38,7 +38,7 @@ class _TodayScreensState extends State<TodayScreens> {
                         tagSelected = tag;
                       });
                     }),
-                    ...tagSelected == null
+                    ... tagSelected == null
                         ? []
                         : [
                             ModalTag(

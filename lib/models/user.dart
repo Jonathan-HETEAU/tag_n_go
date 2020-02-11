@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:tag_n_go/models/day.dart';
 import 'package:tag_n_go/models/tag.dart';
-import 'package:tag_n_go/screens/home/history/history.dart';
 import 'package:tag_n_go/shared/date.dart';
 
 class User {
